@@ -1,9 +1,16 @@
 <html>
+<head>
+    <title>List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
 <body>
     <div>
         <form method="post" action="main">
-            <input type="text" name="text" placeholder="Your message">
-            <input type="text" name="tag" placeholder="Tag">
+            <input type="text" name="name" placeholder="Project name">
+            <input type="text" name="title" placeholder="Title">
+            <input type="text" name="text" placeholder="Text">
+            <input type="text" name="lang" placeholder="Lang">
+            <input type="text" name="link" placeholder="Link">
             <button type="Submit">Add</button>
         </form>
         <form method="post" action="filter">
@@ -11,13 +18,19 @@
             <button type="submit">Find</button>
         </form>
     </div>
-    <div>Massages list</div>
-    {{#messages}}
+    <div>Project list</div>
+    {{#projects}}
         <div>
+            <table>
             <b> {{id}}</b>
+            <span>{{name}}</span>
+            <span>{{title}}</span>
             <span>{{text}}</span>
-            <i>{{tag}}</i>
+            <i>{{lang}}</i>
+            <a href="{{link}}"> Link</a>
+            </table>
         </div>
-        {{/messages}}
+    {{/projects}}
 </body>
 </html>
+

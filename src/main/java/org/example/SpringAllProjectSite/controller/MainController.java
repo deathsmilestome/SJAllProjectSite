@@ -1,7 +1,7 @@
 package org.example.SpringAllProjectSite.controller;
 
-import org.example.SpringAllProjectSite.database.Message;
-import org.example.SpringAllProjectSite.repos.MessageRepo;
+import org.example.SpringAllProjectSite.database.Project;
+import org.example.SpringAllProjectSite.repos.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import java.util.Map;
 @Controller
 public class MainController {
     @Autowired
-    private MessageRepo messageRepo;
+    private ProjectRepo projectRepo;
 
     @GetMapping("/")
     public String zero(Map<String, Object> model) {
@@ -22,38 +22,25 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(Map<String, Object> model) {
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
+        Iterable<Project> projects = projectRepo.findAll();
+        model.put("projects", projects);
         return "main";
     }
 
     @PostMapping("/main")
     public String add(
+            @RequestParam String name,
+            @RequestParam String title,
             @RequestParam String text,
-            @RequestParam String tag,
+            @RequestParam String lang,
+            @RequestParam String link,
             Map<String, Object> model) {
-        Message message = new Message(text, tag);
+        Project project = new Project(name, title, text, lang, link);
 
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
+        Iterable<Project> projects = projectRepo.findAll();
+        model.put("projects", projects);
 
-        messageRepo.save(message);
+        projectRepo.save(project);
         return "redirect:/main";
-    }
-
-    @PostMapping("/filter")
-    public String filter(
-            @RequestParam String filter,
-            Map<String, Object> model) {
-        Iterable<Message> messages;
-
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
-        } else {
-            messages = messageRepo.findAll();
-        }
-
-        model.put("messages", messages);
-        return "main";
     }
 }
