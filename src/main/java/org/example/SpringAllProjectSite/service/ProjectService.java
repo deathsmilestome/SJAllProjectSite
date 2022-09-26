@@ -43,4 +43,13 @@ public class ProjectService {
         }
         return project;
     }
+
+    public List<Project> getAllProjects() throws ProjectsNotFoundedException {
+        List<Project> projects = (List<Project>) projectRepo.findAll();
+        if ( projects.size() == 0) {
+            throw new ProjectsNotFoundedException("Project not founded");
+        }
+        return projects;
+    }
 }
+

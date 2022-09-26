@@ -40,10 +40,21 @@ public class ProjectController {
         }
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity getProjectsByName(@RequestParam String name) {
+    @GetMapping("byname/{name}")
+    public ResponseEntity getProjectsByName(@PathVariable String name) {
         try {
             return ResponseEntity.ok(projectService.getProjectsByName(name));
+        } catch (ProjectsNotFoundedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Save failed");
+        }
+    }
+
+    @GetMapping("/allprojects")
+    public ResponseEntity getALLProjects() {
+        try {
+            return ResponseEntity.ok(projectService.getAllProjects());
         } catch (ProjectsNotFoundedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
