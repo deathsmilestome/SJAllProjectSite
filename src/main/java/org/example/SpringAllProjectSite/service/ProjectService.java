@@ -36,7 +36,7 @@ public class ProjectService {
         return projects;
     }
 
-    public Project getProjectsByName(String name) throws ProjectsNotFoundedException {
+    public Project getProjectByName(String name) throws ProjectsNotFoundedException {
         Project project = projectRepo.findByName(name);
         if ( project == null) {
             throw new ProjectsNotFoundedException("Project not founded");
@@ -50,6 +50,15 @@ public class ProjectService {
             throw new ProjectsNotFoundedException("Project not founded");
         }
         return projects;
+    }
+
+    public String deleteProjectByName(String name) throws ProjectsNotFoundedException {
+        Project project = projectRepo.findByName(name);
+        if ( project == null) {
+            throw new ProjectsNotFoundedException("Project not founded");
+        }
+        projectRepo.delete(project);
+        return "ok";
     }
 }
 

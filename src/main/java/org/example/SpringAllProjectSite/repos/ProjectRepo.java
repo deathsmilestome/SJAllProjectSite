@@ -9,5 +9,4 @@ public interface ProjectRepo extends CrudRepository<Project, Long> {
     List<Project> findByLang(String lang);
     Project findByName(String name);
 
-
 }

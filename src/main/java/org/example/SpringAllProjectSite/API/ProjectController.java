@@ -36,18 +36,18 @@ public class ProjectController {
         } catch (ProjectsNotFoundedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Save failed");
+            return ResponseEntity.badRequest().body("Failed");
         }
     }
 
     @GetMapping("byname/{name}")
-    public ResponseEntity getProjectsByName(@PathVariable String name) {
+    public ResponseEntity getProjectByName(@PathVariable String name) {
         try {
-            return ResponseEntity.ok(projectService.getProjectsByName(name));
+            return ResponseEntity.ok(projectService.getProjectByName(name));
         } catch (ProjectsNotFoundedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Save failed");
+            return ResponseEntity.badRequest().body("Failed");
         }
     }
 
@@ -58,7 +58,18 @@ public class ProjectController {
         } catch (ProjectsNotFoundedException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Save failed");
+            return ResponseEntity.badRequest().body("Failed");
+        }
+    }
+
+    @DeleteMapping("delete/{name}")
+    public ResponseEntity deleteProjectsByName(@PathVariable String name) {
+        try {
+            return ResponseEntity.ok(projectService.deleteProjectByName(name));
+        } catch (ProjectsNotFoundedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed");
         }
     }
 }
